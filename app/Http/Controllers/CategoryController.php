@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -49,22 +47,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            //code...
-            $user = User::where('id',$id)->first();
-            ($request->name) ?  $user->name = $request->name:"";
-            ($request->username) ?  $user->username = $request->username:"";
-            ($request->email) ? $user->email = $request->email:"";
-            ($request->gender) ? $user->gender = $request->gender:"";
-            ($request->user_type) ? $user->user_type = $request->user_type:"";
-            ($request->avatar) ? $user->avatar = $request->avatar:"";
-            ($request->birth) ? $user->birth = $request->birth:"";
-            $user->save();
-            return new UserResource($user);
-        } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json(["error"=>"Please, fill in correctly!"], 500);
-        }
+        //
     }
 
     /**
