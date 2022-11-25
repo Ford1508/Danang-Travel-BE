@@ -25,8 +25,29 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            Blog::created($request->all());
+            return response()->json(["Success"=>"Post Success!"], 200);
+        }
+        catch (Exception $e){
+            return response()->json(["error"=>"Have error, retry again!"], 500);
+        }
         //
-
+//        $blog = new Blog;
+//        $blog->name = $request->name;
+//        $blog->description = $request->description;
+//        $blog->rating = $request->rating;
+//        $blog->image = $request->image;
+//        $blog->user_id = $request->user_id;
+//        $blog->created_at= $request->created_at;
+//        $blog->updated_at = $request->updated_at;
+//        try{
+//            $blog->save();
+//            return response()->json(new UserResource($user), 200);
+//        }
+//        catch (Exception $e){
+//
+//        }
     }
 
     /**
@@ -38,6 +59,7 @@ class BlogController extends Controller
     public function show($id)
     {
         //
+        return Blog::find($id);
     }
 
     /**
@@ -50,6 +72,10 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $blog = Blog::findOrFail($id);
+        $blog->update($request->all());
+
+        return $blog;
     }
 
     /**
@@ -61,5 +87,9 @@ class BlogController extends Controller
     public function destroy($id)
     {
         //
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+
+        return 204;
     }
 }
