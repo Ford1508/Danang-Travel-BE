@@ -29,7 +29,7 @@ class BlogController extends Controller
             Blog::created($request->all());
             return response()->json(["Success"=>"Post Success!"], 200);
         }
-        catch (Exception $e){
+        catch (\Exception $e){
             return response()->json(["error"=>"Have error, retry again!"], 500);
         }
         //
