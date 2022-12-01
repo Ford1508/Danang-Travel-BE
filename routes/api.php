@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register'],);
 Route::post('/login', [AuthController::class, 'login'],);
-Route::post('/editprofile/{id}', [UserController::class, 'update'],);
+Route::get('/blog', [BlogController::class, 'index'],);
+Route::post('/blog/upload', [BlogController::class, 'store'],);
+Route::get("/blog/{id}",[BlogController::class,'show'],);
+Route::post("/blog/delete",[BlogController::class,'destroy'],);
+Route::post("/blog/update",[BlogController::class,'update'],);
+
