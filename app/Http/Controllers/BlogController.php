@@ -26,7 +26,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         try{
-            Blog::created($request->all());
+            $blog = Blog::created($request->all());
             return response()->json(["Success"=>"Post Success!"], 200);
         }
         catch (\Exception $e){

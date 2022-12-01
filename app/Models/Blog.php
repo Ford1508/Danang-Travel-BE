@@ -14,7 +14,7 @@ class Blog extends Model
         'rating',
         'image',
         'user_id',
-        'location_id',
+        'category_id',
         'created_at',
         'updated_at',
     ];

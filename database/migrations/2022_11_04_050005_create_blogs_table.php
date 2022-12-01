@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('location_id')->unsigned()->index();
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->bigInteger('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
