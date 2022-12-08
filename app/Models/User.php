@@ -46,4 +46,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function comment()
+    {
+        return $this->hasMany('App\Models\comment','user_id', 'id');
+    }
+
+    public function rating_post()
+    {
+        return $this->hasMany('App\Models\Rating_post','user_id', 'id');
+    }
+
+    public function rating_comment()
+    {
+        return $this->hasMany('App\Models\Rating_comment','user_id', 'id');
+    }
 }

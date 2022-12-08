@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -15,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return UserResource::collection(User::all());
     }
 
     /**
@@ -37,7 +40,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            //code...
+            $user = User::findOrFail($id);
+            return new UserResource($user);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -57,13 +66,45 @@ class UserController extends Controller
             ($request->email) ? $user->email = $request->email:"";
             ($request->gender) ? $user->gender = $request->gender:"";
             ($request->user_type) ? $user->user_type = $request->user_type:"";
-            ($request->avatar) ? $user->avatar = $request->avatar:"";
+            if($request->hasFile('avatar')) 
+            {
+                $user->avatar = $request->file('avatar')->store('images/avatars');
+            }
             ($request->birth) ? $user->birth = $request->birth:"";
             $user->save();
             return new UserResource($user);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json(["error"=>"Please, fill in correctly!"], 500);
+        }
+    }
+
+    public function change_password(Request $request){
+        $input = array(
+            'old_password' => $request->old_password,
+            'new_password' => $request->new_password,
+            'confirm_password' => $request->confirm_password,
+        );
+        $rule = array(
+            'old_password' => 'required',
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password',
+        );
+        $validator = Validator::make($input, $rule);
+
+        if($validator->fails()){
+            return response()->json(['message'=>$validator->errors()->first()],404);
+        } else {
+            $user = User::findOrFail($request->user_id);
+            if((Hash::check($request->old_password, $user->password))== false){
+                return response()->json(['message'=>"check your old password"]);
+            } else if ((Hash::check($request->new_password, $user->password)) == true){
+                return response()->json(['message'=>" please enter a new password"]);
+            } else {
+                $user->update(['password' => Hash::make($request->new_password)]);
+                return new UserResource($user);
+            }
+            return response()->json(['message' => "User not found"]);
         }
     }
 

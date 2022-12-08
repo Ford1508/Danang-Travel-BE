@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('rating_comments', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('rating')->default(0);
-            $table->string('image')->nullable();
+            $table->integer('rating');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('category_id')->unsigned()->index();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->bigInteger('comment_id')->unsigned()->index();
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
+            $table->unique(['user_id', 'comment_id']);
             $table->timestamps();
         });
     }
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('rating_comments');
     }
 };
