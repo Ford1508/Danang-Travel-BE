@@ -49,7 +49,7 @@ Route::get('/blog/unrate/{id}', [RatingPostController::class, 'unrateblog']);
 
 Route::get('/comment/add{id}', [CommentController::class, 'blogcomment']);
 Route::get('/comment/delete{id}', [CommentController::class, 'deletecomment']);
-Route::get('/comment/byblog{id}', [CommentController::class, 'deletecomment']);
+Route::get('/comment/byblog{id}', [CommentController::class, 'comments_by_blog']);
 Route::get('/comment/add', [CommentController::class, 'blogcomment']);
 
 Route::get('/comment/rating/{id}', [RatingCommentController::class, 'ratecomment']);
