@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -25,29 +26,31 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // try{
+        //     $blog = Blog::create($request->all());
+        //     return response()->json(["Success"=>"Post Success!"], 200);
+        // }
+        // catch (\Exception $e){
+        //     return response()->json(["error"=>"Have error, retry again!"], 500);
+        // }
+        //
         try{
-            $blog = Blog::created($request->all());
-            return response()->json(["Success"=>"Post Success!"], 200);
+            $blog = new Blog;
+            $blog->name = $request->name;
+            $blog->description = $request->description;
+            $blog->address = $request->address;
+            $blog->user_id = $request->user_id;
+            $blog->category_id= $request->category_id;
+            if($request->hasFile('image'))
+            {
+                $blog->image = $request->file('image')->store('images/blogs');
+            }
+            $blog->save();
+            return response()->json($blog, 200);
         }
         catch (\Exception $e){
             return response()->json(["error"=>"Have error, retry again!"], 500);
         }
-        //
-//        $blog = new Blog;
-//        $blog->name = $request->name;
-//        $blog->description = $request->description;
-//        $blog->rating = $request->rating;
-//        $blog->image = $request->image;
-//        $blog->user_id = $request->user_id;
-//        $blog->created_at= $request->created_at;
-//        $blog->updated_at = $request->updated_at;
-//        try{
-//            $blog->save();
-//            return response()->json(new UserResource($user), 200);
-//        }
-//        catch (Exception $e){
-//
-//        }
     }
 
     /**
@@ -59,7 +62,8 @@ class BlogController extends Controller
     public function show($id)
     {
         //
-        return Blog::find($id);
+        $blog = Blog::find($id);
+        return response()->json($blog,200);
     }
 
     /**
@@ -72,10 +76,23 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $blog = Blog::findOrFail($id);
-        $blog->update($request->all());
-
-        return $blog;
+        try{
+            $blog = Blog::find($id);
+            $blog->name = $request->name;
+            $blog->description = $request->description;
+            $blog->address = $request->address;
+            $blog->user_id = $request->user_id;
+            $blog->category_id= $request->category_id;
+            if($request->hasFile('image'))
+            {
+                $blog->image = $request->file('image')->store('images/blogs');
+            }
+            $blog->save();
+            return response()->json($blog, 200);
+        }
+        catch (\Exception $e){
+            return response()->json(["error"=>"Have error, retry again!"], 500);
+        }
     }
 
     /**
