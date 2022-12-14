@@ -40,6 +40,22 @@ class CategorySeeder extends Seeder
                 "name" => "Pub",
                 "image" => "images/category/pub.jpg",
             ],
+            [
+                "name" => "Food and Drink",
+                "image" => "images/category/pub.jpg",
+            ],
+            [
+                "name" => "Entertainment",
+                "image" => "images/category/pub.jpg",
+            ],
+            [
+                "name" => "Dating",
+                "image" => "images/category/pub.jpg",
+            ],
+            [
+                "name" => "Checkin",
+                "image" => "images/category/pub.jpg",
+            ],
         ]);
     }
 }
