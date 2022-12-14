@@ -17,13 +17,22 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                "name" => "Dịch vụ",
+                "name" => "Caffee",
             ],
             [
-                "name" => "Thực phẩm",
+                "name" => "Restaurant",
             ],
             [
-                "name" => "Giải trí",
+                "name" => "Hotel",
+            ],
+            [
+                "name" => "Supermarket",
+            ],
+            [
+                "name" => "Bar",
+            ],
+            [
+                "name" => "Pub",
             ],
         ]);
     }
