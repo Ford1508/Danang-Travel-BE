@@ -18,6 +18,11 @@ class BlogController extends Controller
         return response()->json(Blog::all(), 200);
     }
 
+    public function indexByCategory(Request $request)
+    {
+        return response()->json(Blog::where('category_id',$request->category_id)->orderBy('id', 'desc')->paginate(6), 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

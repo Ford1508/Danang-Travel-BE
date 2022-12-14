@@ -33,6 +33,7 @@ Route::get('/user/{id}', [UserController::class, 'show']);
 Route::get('/changepassword', [UserController::class, 'change_password']);
 
 Route::get('/blog', [BlogController::class, 'index'],);
+Route::get('/blogByCate', [BlogController::class, 'indexByCategory'],);
 Route::post('/blog/upload', [BlogController::class, 'store'],);
 Route::get("/blog/{id}",[BlogController::class,'show'],);
 Route::post("/blog/delete",[BlogController::class,'destroy'],);
@@ -47,12 +48,12 @@ Route::post("/category/update",[CategoryController::class,'update'],);
 Route::get('/blog/rating/{id}', [RatingPostController::class, 'rateblog']);
 Route::get('/blog/unrate/{id}', [RatingPostController::class, 'unrateblog']);
 
-Route::get('/comment/add{id}', [CommentController::class, 'blogcomment']);
-Route::get('/comment/delete{id}', [CommentController::class, 'deletecomment']);
-Route::get('/comment/byblog{id}', [CommentController::class, 'comments_by_blog']);
+Route::post('/comment/add/{id}', [CommentController::class, 'blogcomment']);
+Route::delete('/comment/delete/{id}', [CommentController::class, 'deletecomment']);
+Route::get('/comment/byblog/{id}', [CommentController::class, 'comments_by_blog']);
 // Route::get('/comment/add', [CommentController::class, 'blogcomment']);
 
-Route::get('/comment/rating/{id}', [RatingCommentController::class, 'ratecomment']);
-Route::get('/comment/unrate/{id}', [RatingCommentController::class, 'unratecomment']);
+Route::post('/comment/rating/{id}', [RatingCommentController::class, 'ratecomment']);
+Route::post('/comment/unrate/{id}', [RatingCommentController::class, 'unratecomment']);
 
-Route::get('/blog/comment/{id}', [CommentController::class, 'comments_by_blog']);
+Route::get('/blog/comments/{id}', [CommentController::class, 'comments_by_blog']);

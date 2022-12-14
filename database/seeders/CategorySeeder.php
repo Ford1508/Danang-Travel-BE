@@ -18,21 +18,27 @@ class CategorySeeder extends Seeder
         DB::table('categories')->insert([
             [
                 "name" => "Caffee",
+                "image" => "images/category/cafe.jpg",
             ],
             [
                 "name" => "Restaurant",
+                "image" => "images/category/restaurant.jpg",
             ],
             [
                 "name" => "Hotel",
+                "image" => "images/category/hotel.jpeg",
             ],
             [
                 "name" => "Supermarket",
+                "image" => "images/category/market.jpg",
             ],
             [
                 "name" => "Bar",
+                "image" => "images/category/bar.jpg",
             ],
             [
                 "name" => "Pub",
+                "image" => "images/category/pub.jpg",
             ],
         ]);
     }
