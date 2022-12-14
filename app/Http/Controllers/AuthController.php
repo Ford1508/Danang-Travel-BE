@@ -43,7 +43,7 @@ class AuthController extends Controller
             if(!$user || !Hash::check($request->password, $user->password)){
                 return response()->json(["error"=>"Email or password is not matched"], 404);
             }
-            return response()->json(new UserResource($user), 200);
+            return response()->json($user, 200);
         }
         else{
             $user = User::where('username', $request->username)->first();
@@ -53,7 +53,7 @@ class AuthController extends Controller
             if(!$user || !Hash::check($request->password, $user->password)){
                 return response()->json(["error"=>"Username or password is not matched"], 404);
             }
-            return response()->json(new UserResource($user), 200);
+            return response()->json($user, 200);
         }
     }
 

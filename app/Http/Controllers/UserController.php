@@ -72,7 +72,7 @@ class UserController extends Controller
             }
             ($request->birth) ? $user->birth = $request->birth:"";
             $user->save();
-            return new UserResource($user);
+            return response()->json($user, 200);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json(["error"=>"Please, fill in correctly!"], 500);
@@ -102,7 +102,7 @@ class UserController extends Controller
                 return response()->json(['message'=>" please enter a new password"]);
             } else {
                 $user->update(['password' => Hash::make($request->new_password)]);
-                return new UserResource($user);
+                return response()->json($user, 200);
             }
             return response()->json(['message' => "User not found"]);
         }
