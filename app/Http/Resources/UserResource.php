@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'user_type' =>$this->user_type,
             'avatar' =>$this->avatar,
             'birth' =>$this->birth,
+            'created_at' =>$this->created_at,
+            'updated_at' =>$this->updated_at,
         ];
     }
 }
