@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Rating_comment','user_id', 'id');
     }
+
+    public function blog()
+    {
+        return $this->hasMany('App\Models\Blog','user_id','id');
+    }
 }

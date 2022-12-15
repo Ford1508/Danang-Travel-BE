@@ -20,7 +20,7 @@ class BlogController extends Controller
 
     public function indexByCategory(Request $request)
     {
-        return response()->json(Blog::where('category_id',$request->category_id)->orderBy('id', 'desc')->paginate(6), 200);
+        return response()->json(Blog::where('category_id',$request->category_id)->with('user')->with('category')->orderBy('id', 'desc')->paginate(6), 200);
     }
 
     /**
@@ -67,7 +67,7 @@ class BlogController extends Controller
     public function show($id)
     {
         //
-        $blog = Blog::find($id);
+        $blog = Blog::where('id',$id)->with('user')->with('category')->first();
         return response()->json($blog,200);
     }
 

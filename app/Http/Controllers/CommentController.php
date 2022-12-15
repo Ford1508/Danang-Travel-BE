@@ -42,7 +42,7 @@ class CommentController extends Controller
         try {
             $blog = Blog::findOrFail($id);
             $blog_id = $blog->id;
-            $comments = Comment::where('blog_id',$blog_id)->orderBy('id', 'desc')->get();
+            $comments = Comment::where('blog_id',$blog_id)->with('user')->with('rating_comment')->orderBy('id', 'desc')->get();
             return response()->json($comments);
         } catch (\Throwable $th) {
             //throw $th;
