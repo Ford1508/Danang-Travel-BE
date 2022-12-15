@@ -65,6 +65,7 @@ class UserController extends Controller
             ($request->username) ?  $user->username = $request->username:"";
             ($request->email) ? $user->email = $request->email:"";
             ($request->gender) ? $user->gender = $request->gender:"";
+            ($request->phone) ? $user->phone = $request->phone:"";
             ($request->user_type) ? $user->user_type = $request->user_type:"";
             if($request->hasFile('avatar')) 
             {
@@ -81,12 +82,12 @@ class UserController extends Controller
 
     public function change_password(Request $request){
         $input = array(
-            'old_password' => $request->old_password,
+            // 'old_password' => $request->old_password,
             'new_password' => $request->new_password,
             'confirm_password' => $request->confirm_password,
         );
         $rule = array(
-            'old_password' => 'required',
+            // 'old_password' => 'required',
             'new_password' => 'required|min:6',
             'confirm_password' => 'required|same:new_password',
         );
@@ -96,9 +97,9 @@ class UserController extends Controller
             return response()->json(['message'=>$validator->errors()->first()],404);
         } else {
             $user = User::findOrFail($request->user_id);
-            if((Hash::check($request->old_password, $user->password))== false){
-                return response()->json(['message'=>"check your old password"]);
-            } else if ((Hash::check($request->new_password, $user->password)) == true){
+            // if((Hash::check($request->old_password, $user->password))== false){
+            //     return response()->json(['message'=>"check your old password"]);
+            if ((Hash::check($request->new_password, $user->password)) == true){
                 return response()->json(['message'=>" please enter a new password"]);
             } else {
                 $user->update(['password' => Hash::make($request->new_password)]);

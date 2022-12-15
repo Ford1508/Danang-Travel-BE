@@ -15,12 +15,28 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return response()->json(Blog::all(), 200);
+        return response()->json(
+            Blog::orderBy('rating', 'desc')
+            ->orderBy('id', 'desc')
+            ->take(3)
+            ->get()
+            , 200);
     }
 
     public function indexByCategory(Request $request)
     {
-        return response()->json(Blog::where('category_id',$request->category_id)->with('user')->with('category')->orderBy('id', 'desc')->paginate(6), 200);
+        return response()->json(Blog::where('category_id',$request->category_id)->with('user')->with('category')
+        ->orderBy('rating', 'desc')
+        ->orderBy('id', 'desc')
+        ->paginate(8), 200);
+    }
+
+    public function indexByCategoryFull(Request $request)
+    {
+        return response()->json(Blog::where('category_id',$request->category_id)->with('user')->with('category')
+        ->orderBy('rating', 'desc')
+        ->orderBy('id', 'desc')
+        ->get(), 200);
     }
 
     /**
@@ -67,7 +83,11 @@ class BlogController extends Controller
     public function show($id)
     {
         //
-        $blog = Blog::where('id',$id)->with('user')->with('category')->first();
+        $blog = Blog::where('id',$id)
+        ->with('user')
+        ->with('category')
+        ->with('Rating_post')
+        ->first();
         return response()->json($blog,200);
     }
 
