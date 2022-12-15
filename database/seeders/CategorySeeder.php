@@ -42,19 +42,19 @@ class CategorySeeder extends Seeder
             ],
             [
                 "name" => "Food and Drink",
-                "image" => "images/category/pub.jpg",
+                "image" => "images/category/Food.jpg",
             ],
             [
                 "name" => "Entertainment",
-                "image" => "images/category/pub.jpg",
+                "image" => "images/category/entertainment.jpg",
             ],
             [
                 "name" => "Dating",
-                "image" => "images/category/pub.jpg",
+                "image" => "images/category/Dating.jpg",
             ],
             [
                 "name" => "Checkin",
-                "image" => "images/category/pub.jpg",
+                "image" => "images/category/checkin.jpg",
             ],
         ]);
     }
