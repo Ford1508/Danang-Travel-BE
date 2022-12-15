@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('address')->nullable();
             $table->integer('rating')->default(0);
-            $table->string('image')->nullable();
+            $table->longText('image')->nullable();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('category_id')->unsigned()->index();

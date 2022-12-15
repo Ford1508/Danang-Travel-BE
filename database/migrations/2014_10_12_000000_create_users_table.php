@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('phone');
-            $table->integer('gender')->default(0);
+            $table->tinyInteger('gender')->default(1);
             $table->integer('user_type')->default(0);
             $table->string('avatar')->nullable();
             $table->date('birth')->default(NOW());

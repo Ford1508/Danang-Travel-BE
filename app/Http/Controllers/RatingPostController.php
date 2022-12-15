@@ -17,6 +17,11 @@ class RatingPostController extends Controller
                 $rate_blog = Rating_post::where('blog_id',$blog_id)->where('user_id',$request->user_id)->first();
                 $rate_blog->rating = $request->rating;
                 $rate_blog->save();
+                $rating = $blog->Rating_post()->sum('rating');
+                $num_rating = $blog->Rating_post()->count();
+                $blograte = (int)$rating / $num_rating;
+                $blog->rating = $blograte;
+                $blog->save();
                 return response()->json($rate_blog);
             }
             else
@@ -26,6 +31,11 @@ class RatingPostController extends Controller
                 $rate_blog->user_id = $request->user_id;
                 $rate_blog->rating = $request->rating;
                 $rate_blog->save();
+                $rating = $blog->Rating_post()->sum('rating');
+                $num_rating = $blog->Rating_post()->count();
+                $blograte = (int)$rating / $num_rating;
+                $blog->rating = $blograte;
+                $blog->save();
                 return response()->json($rate_blog);
             }
             return response()->json(["error"=>"Please, correctly!"], 500);
@@ -40,6 +50,13 @@ class RatingPostController extends Controller
             //code...
             $rate_blog = Rating_post::where('blog_id',$id)->where('user_id',$request->user_id);
             $rate_blog->delete();
+            $blog = Blog::findOrFail($id);
+            $blog_id = $blog->id;
+            $rating = $blog->Rating_post()->sum('rating');
+            $num_rating = $blog->Rating_post()->count();
+            $blograte = (int)$rating / $num_rating;
+            $blog->rating = $blograte;
+            $blog->save();
             return response()->json(["message"=>"unrate_success"]);
         } catch (\Throwable $th) {
             //throw $th;
@@ -52,7 +69,11 @@ class RatingPostController extends Controller
      */
     public function index()
     {
-        //
+        $blog = Blog::findOrFail(1);
+        $rateing = $blog->Rating_post()->sum('rating');
+        $numrating = $blog->Rating_post()->count();
+        $rating = (int)$rateing / $numrating;
+        return response()->json($rating);
     }
 
     /**

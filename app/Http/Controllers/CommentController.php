@@ -10,16 +10,16 @@ class CommentController extends Controller
 {
 
     public function blogcomment($id, Request $request){
+        $blog = Blog::findOrFail($id);
+        $blog_id = $blog->id;
+        $comment = new Comment;
+        $comment->blog_id = $blog_id;
+        $comment->user_id = $request->user_id;
+        $comment->body = $request->body;
+        $comment->save();
+        return response()->json($comment);
         try {
             //code...
-            $blog = Blog::findOrFail($id);
-            $blog_id = $blog->id;
-            $comment = new Comment;
-            $comment->blog_id = $blog_id;
-            $comment->user_id = $request->user_id;
-            $comment->body = $request->body;
-            $comment->save();
-            return response()->json($comment);
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json(["message"=>"failed to create!"], 500);
@@ -42,7 +42,7 @@ class CommentController extends Controller
         try {
             $blog = Blog::findOrFail($id);
             $blog_id = $blog->id;
-            $comments = Comment::where('blog_id',$blog_id)->get();
+            $comments = Comment::where('blog_id',$blog_id)->with('user')->with('rating_comment')->orderBy('id', 'desc')->get();
             return response()->json($comments);
         } catch (\Throwable $th) {
             //throw $th;

@@ -13,4 +13,9 @@ class Category extends Model
         'name',
         'image',
     ];
+
+    public function blog()
+    {
+        return $this->hasMany('App\Models\Blog','category_id','id');
+    }
 }
