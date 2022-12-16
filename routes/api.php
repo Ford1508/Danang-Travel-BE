@@ -44,7 +44,7 @@ Route::get('/category', [CategoryController::class, 'index'],);
 Route::post('/category/create', [CategoryController::class, 'store'],);
 Route::get("/category/{id}",[CategoryController::class,'show'],);
 Route::post("/category/delete",[CategoryController::class,'destroy'],);
-Route::post("/category/update",[CategoryController::class,'update'],);
+Route::post("/category/update/{id}",[CategoryController::class,'update'],);
 
 Route::get('/testrateblog', [RatingPostController::class, 'index']);
 Route::get('/blog/rating/{id}', [RatingPostController::class, 'rateblog']);
