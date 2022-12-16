@@ -20,4 +20,10 @@ Route::get('/', function () {
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
+    Artisan::call('migrate:refresh');
+    Artisan::call('db:seed');
+});
+Route::get('/database-fresh', function () {
+    Artisan::call('migrate:refresh');
+    Artisan::call('db:seed');
 });
