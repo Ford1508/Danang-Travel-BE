@@ -18,20 +18,18 @@ class AuthController extends Controller
      */
 
     public function register(Request $request){
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->username = $request->username;
-        ($request->gender) ? $user->gender = $request->gender: "";
-        ($request->birth) ? ($user->birth = $request->birth): "";
-        try {
+        // try {
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->username = $request->username;
             $user->save();
             $user = User::find($user->id);
             return response()->json(new UserResource($user), 200);
-        } catch (\Exception $e) {
-            return response()->json(["error"=>"Email or Username is already exists!"], 500);
-        }
+        // } catch (\Exception $e) {
+        //     return response()->json(["error"=>"Email or Username is already exists!"], 500);
+        // }
     }
     
     public function login(Request $request){
